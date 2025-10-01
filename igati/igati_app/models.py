@@ -1,19 +1,27 @@
 from django.db import models
 
 # User model- will store the users of igati
-class User(models.Model):
+class Users(models.Model):
+    # firebase_uid = models.CharField(max_length=128, unique=True)  # UID from Firebase
+    firstName = models.CharField(max_length=50)
+    lastName = models.CharField(max_length=50)
+    password = models.CharField(max_length=128, default= "weeeeeeeee")
     email = models.EmailField(unique=True)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    phone_number = models.CharField(max_length=15)
-    date_joined = models.DateTimeField(auto_now_add=True)
+    phoneNumber = models.CharField(max_length=15, unique=True)
+
+    ROLES = (
+        ('admin', 'Admin'),
+        ('user', 'User'),
+    )
+    role = models.CharField(max_length=100, choices=ROLES, default='user')
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} {self.date_joined}"
+        return f"{self.firstName} {self.lastName} ({self.email})"
+
 
 # Product model- will store the products listed by users/igati
 class Product(models.Model):
-    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name="products")
+    seller = models.ForeignKey(Users, on_delete=models.CASCADE, related_name="products")
     name = models.CharField(max_length=100)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -26,7 +34,7 @@ class Product(models.Model):
 
 # Project model- will store the igati projects
 class Project(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(Users, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     description = models.TextField()
     image = models.URLField(blank=True, null=True)
@@ -44,7 +52,7 @@ class Order(models.Model):
         ("cancelled", "Cancelled"),
     ]
 
-    buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="orders")
+    buyer = models.ForeignKey(Users, on_delete=models.CASCADE, related_name="orders")
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
     created_at = models.DateTimeField(auto_now_add=True)
 
