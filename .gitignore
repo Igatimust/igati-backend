@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+/media
+/staticfiles
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment variables
+.env
+.env.local
+
+# Test files (standalone, not Django tests)
+test_*.py
+*_test.py
+system_check.py
+payment_reference.py
+interactive_test.py
+final_test.py
+web_test.py
+demo_payment_flow.py
+example_api_usage.py
+create_admin.py
+simple_payment.py
+
+# OS
+.DS_Store
+Thumbs.db
